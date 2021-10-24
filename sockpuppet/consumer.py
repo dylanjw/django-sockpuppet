@@ -244,10 +244,6 @@ class BaseConsumer(JsonWebsocketConsumer):
         reflex.get_context_data(**reflex_context)
         # monkey patch context method
         view.view_class.get_context_data = reflex.get_context_data
-        # We also need to make sure that the last update from reflex context wins
-        view.view_class.get_context_data = context_decorator(
-            view.view_class.get_context_data, reflex_context
-        )
 
         response = view(reflex.request, *resolved.args, **resolved.kwargs)
         # we've got the response, the function needs to work as normal again
